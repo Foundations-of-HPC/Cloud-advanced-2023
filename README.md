@@ -67,6 +67,7 @@ Legend:
 
 # Resources
 
-Starting point and the one to refer for this course: https://kubernetes.io/docs/home/
+- Starting point and the one to refer for this course: https://kubernetes.io/docs/home/
+- Introduction will follow in particular this section: https://kubernetes.io/docs/concepts/
 
-Introduction will follow in particular this section: https://kubernetes.io/docs/concepts/
+Complete list of resources is available [here](https://gitlab.com/aiace9/knowledgedatabase/-/blob/master/org/kubernetes.org) and the [bib file](https://gitlab.com/aiace9/knowledgedatabase/-/blob/master/references.bib) to solve urls where not available. I will publish a more synthetic list later on.
