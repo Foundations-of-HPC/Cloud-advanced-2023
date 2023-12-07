@@ -1,0 +1,30 @@
+servers = [
+  { :hostname => "k01", :ip => "192.168.133.80" },
+  # { :hostname => "k02", :ip => "192.168.133.81" },
+  # { :hostname => "k03", :ip => "192.168.133.83" },
+]
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "fedora/39-cloud-base"
+
+  config.vm.provider :libvirt do |lv|
+    # lv.qemu_use_session = true
+    lv.memory = 2048
+    lv.cpus = 2
+  end
+
+  servers.each do |conf|
+    config.vm.define conf[:hostname] do |node|
+      node.vm.hostname = conf[:hostname]
+      node.vm.synced_folder ".", "/vagrant", disabled: true
+
+      node.vm.network :private_network,
+                      :libvirt__network_name => 'kub-devel'
+
+      node.vm.provision :shell, 
+                        :path => './0_bash_common_provisioning.sh',
+                        :args => [ conf[:ip] ]
+
+    end
+  end
+end

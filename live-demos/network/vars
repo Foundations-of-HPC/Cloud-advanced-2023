@@ -1,0 +1,7 @@
+namespace1=client
+namespace2=server
+ip_address1="10.10.10.10/24"
+ip_address2='10.10.10.20/24'
+interface1=veth-client
+interface2=veth-server
+command='python3 -m http.server 80'

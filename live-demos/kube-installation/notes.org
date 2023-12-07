@@ -1,0 +1,155 @@
+#+TITLE: Notes
+* virsh
+
+[[https://gitlab.com/area7/datacenter/codes/virtualorfeo][complete example with virsh and vagrant]]
+
+Only the 101
+#+begin_src 
+sudo virsh net-define kub-devel-network.xml
+vagrant up
+#+end_src
+
+* The Kub Procedure
+
+** Basic setup
+#+begin_src
+# Load modules
+modprobe overlay
+modprobe br_netfilter
+
+# make load permanent
+cat <<EOF | tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+# change kernel parameters
+cat <<EOF |  tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward = 1
+EOF
+
+# Load kernel parameters at runtime
+sysctl --system
+
+# disable zram
+touch /etc/systemd/zram-generator.conf
+swapoff -a
+
+# Security? What security? Disable SElinux.
+setenforce 0
+sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+#+end_src
+- [[https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html][Overlay]]
+
+** Kube installation
+  
+#+begin_src 
+# attention to exclude!!
+cat << EOF | tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/
+enabled=1
+gpgcheck=1
+gpgkey=https://pkgs.k8s.io/core:/stable:/v1.28/rpm/repodata/repomd.xml.key
+exclude=kubelet kubeadm kubectl cri-tools kubernetes-cni
+EOF
+#+end_src
+
+#+begin_src 
+# utils 
+dnf install iproute-tc wget -y
+# CRI-o
+dnf install crio -y
+# real kube
+dnf install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+#+end_src
+
+Have a look at the network at this point!
+=ip --all netns exec ip a=
+
+#+begin_src 
+sed -i 's/10.85.0.0\/16/10.17.0.0\/16/' /etc/cni/net.d/100-crio-bridge.conflist
+systemctl enable --now crio
+systemctl enable --now kubelet
+
+kubeadm init --pod-network-cidr=10.17.0.0/16
+# --services-cidr=10.96.0.0/12 /default
+# --control-plane-endpoint 192.168.132.80 /needed for HA
+#+end_src
+
+# copy the credentials
+#+begin_src 
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+alias k=kubectl
+#+end_src
+
+=kubectl get pods --all-namespaces -o wide=
+
+** k9s
+#+begin_src 
+dnf install wget -y
+cd /tmp
+wget https://github.com/derailed/k9s/releases/download/v0.28.2/k9s_Linux_amd64.tar.gz
+tar -xvf k9s_Linux_amd64.tar.gz; chmod +x k9s; mv k9s /usr/local/bin
+export EDITOR=vim
+echo EDITOR=vim >> ~/.bashrc
+cd 
+#+end_src
+** Removing taint
+=kubectl taint nodes --all  node-role.kubernetes.io/control-plane-=
+** Basic app
+#+begin_src yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kuard
+  labels:
+    app: kuard
+spec:
+  containers:
+    - image: gcr.io/kuar-demo/kuard-amd64:blue
+      name: kuard
+      ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kuard-nodeport
+spec:
+  type: NodePort
+  selector:
+    app: kuard
+  ports:
+    - port: 8080
+      nodePort: 30007
+#+end_src
+
+** TODO HA, Flannel
+#+begin_src 
+cat /etc/cni/net.d/100-crio-bridge.conflist
+
+wget https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+
+vim kube-flannel.yml
+
+kubectl apply -f kube-flannel.yml
+
+sudo cat /etc/kubernetes/manifests/kube-controller-manager.yaml | grep -i cluster-cidr
+
+[root@k01 ~]# cat /etc/cni/net.d/100-crio-bridge.conflist
+{
+  "cniVersion": "1.0.0",
+  "name": "crio",
+  "type": "flannel",
+}
+  https://github.com/cri-o/cri-o/blob/main/tutorials/kubernetes.md
+#+end_src
+

@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+spec:
+  containers:
+  - name: server
+    image: python:3.11.6-alpine
+    command: ["sh", "-c", "python /opt/server.py"]
+    volumeMounts:
+    - mountPath: /opt/
+      name: py-sources
+    - mountPath: /workdir/
+      name: data-sharing
+  - name: client
+    image: python:3.11.6-alpine
+    command: ["sh", "-c", "python /opt/client.py"]
+    volumeMounts:
+    - mountPath: /opt/
+      name: py-sources
+    - mountPath: /workdir/
+      name: data-sharing
+
+  volumes:
+  - name: data-sharing
+    emptyDir: {}
+  - hostPath:
+      path: /home/ruggero/AREA/projects/Lectures/dssc/CloudAdvanced/playfields/intrapod-communication
+      type: Directory
+    name: py-sources

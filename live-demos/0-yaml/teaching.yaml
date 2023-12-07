@@ -1,0 +1,37 @@
+---
+a_string: "string"
+a_float: 3.14159
+a_int: 3
+a_bool: true
+a_boole: no
+a_list:
+  - s1
+  - s2
+  - s3
+  - s4
+a_dict:
+  key: value
+  list: [a, b, c]
+  sub_dict:
+    a_int: 1
+    a_string: "a pear tree"
+bar_a: |
+  this is not a normal string it
+  spans more than
+  one line
+  see?
+bar_d: |-
+  this is not a normal string it
+  spans more than
+  one line
+  see?
+bar_b: >
+  this is not a normal string it
+  spans more than
+  one line
+  see?
+bar_c: >+
+  this is not a normal string it
+  spans more than
+  one line
+  see?
