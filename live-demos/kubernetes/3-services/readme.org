@@ -1,0 +1,14 @@
+
+
+* Node Port
+Node ports is available without any external components [[./NodePort/pod.yaml][example]].
+
+* Load Balancer
+- Our loadbalancer of choice is [[ https://raw.githubusercontent.com/metallb/metallb/v0.13.12/config/manifests/metallb-native.yaml][metallb 0.13.12]]
+- deploy it by using =kubectl apply -f=
+- [[./LB/config.yaml][config loadbalancer manifest]]
+- [[./LB/pod.yaml][pod + service manifest]]
+- after deploying check with =arping 192.168.121.XX= who is answering!
+
+* Gateways (optional)
+In Kubernetes, Gateway is an API object that manages external access to services within a cluster. It allows you to define how external HTTP/S traffic should be processed and routed to your services. More details in [[./Gateway/readme.org][here]].
