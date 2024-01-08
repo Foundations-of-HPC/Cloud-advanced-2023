@@ -25,6 +25,6 @@ spec:
   - name: data-sharing
     emptyDir: {}
   - hostPath:
-      path: /home/ruggero/AREA/projects/Lectures/dssc/CloudAdvanced/playfields/intrapod-communication
+      path: path-to/live-demos/NameSpaces-and-Podman/intrapod-communication
       type: Directory
     name: py-sources
