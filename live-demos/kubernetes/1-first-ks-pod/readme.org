@@ -1,0 +1,15 @@
+* Deploying our first application
+#+begin_src
+# deploy the application by using a manifest
+kubectl apply -f main.yaml
+# connecting to it by using a debug mode.
+kubectl port-forward my-first-pod 40000:80 --address 0.0.0.0
+# run a bash in your pod
+kubectl exec -it my-first-pod -- bash
+# remove everything created by the manifest.
+kubeclt delete -f main.yaml
+#+end_src
+
+* Exercise:
+- configure kubectl to connect directly form your laptop by copy the =admin.conf= on your home directory and try to port forward. You will not need to specify any address, why?
+- 
