@@ -1,0 +1,9 @@
+* Deploying our second application
+
+This pod is similar to the first one but leverages more Kubernetes features, particularly application monitoring and resource management.
+
+Try to deploy this manifest, connect to it using the port forward, and see how Kubernetes reacts to different application behaviors.
+
+* Questions:
+- Slurm and Kubernetes perform resource management (CPU and RAM) leveraging the same Linux kernel features. Would you know its name?
+- How does it come that when the application is not ready, you can still connect to it?
