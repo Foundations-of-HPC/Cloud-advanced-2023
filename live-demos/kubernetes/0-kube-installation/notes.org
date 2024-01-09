@@ -107,4 +107,10 @@ EOF
 #+end_src
 
 ** Removing taints
+
+This step is necessary to schedule pods on the single node we have.
+
 =kubectl taint nodes --all  node-role.kubernetes.io/control-plane-=
+
+* More then one node (optional)
+The CNI we are using here is not suited (does not support) multi node communication. To enable this option you should install an extra CNI like =flannel= and substitute it to the bridge we are currently using.
