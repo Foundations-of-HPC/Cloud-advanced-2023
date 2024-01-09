@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busybox-dep
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: busybox-dep
+  template:
+    metadata:
+      labels:
+        app: busybox-dep
+    spec:
+      containers:
+      - image: busybox:1.35 # 1.36
+        name: b1
+        command: [ "/bin/sh", "-c", "--" ]
+        args: [ "while true; do sleep 30; echo $HOSTNAME; done;" ]

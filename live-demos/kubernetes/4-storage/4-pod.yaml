@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pvc-user
+spec:
+  containers:
+    - image: busybox
+      name: my-pvc-user
+      volumeMounts:
+        - mountPath: "/data"
+          name: "volume"
+      command: [ "/bin/sh", "-c", "--" ]
+      args: [ "while true; do sleep 30; done;" ]
+  volumes:
+    - name: volume
+      persistentVolumeClaim:
+        claimName: volume-claim

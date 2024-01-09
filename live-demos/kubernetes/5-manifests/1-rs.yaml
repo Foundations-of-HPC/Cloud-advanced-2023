@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: busybox-rs
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        tier: frontend
+    spec:
+      containers:
+      - image: busybox
+        name: b1
+        command: [ "/bin/sh", "-c", "--" ]
+        args: [ "while true; do sleep 30; echo $HOSTNAME; done;" ]
