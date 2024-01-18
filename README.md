@@ -25,6 +25,13 @@ Computational resource to be used: ORFEO cluster see https://orfeo-doc.areascien
   - HPC course completed
   - decent knowledge of scripting language  ( python is fine but bash awk perl are also welcome}
 
+# Exam sessions of the first semester
+
+| DATE         | TIME                                     | LOCATION                                                           |
+| :----------  | :---------------------------------------------| :---------------------------------------------
+| Thu, Feb 1 2024  | 09:00-14:00 | Osservatorio Astronomico di Trieste, via Bazzoni 2 |
+| Fri, Feb 23 2024  | 13:00-18:00 | Osservatorio Astronomico di Trieste, via Bazzoni 2 |
+
 # Calendar&Topic
 
 We plan to provide a few hours as frontal lectures ( max 8) and the rest as tutorials and labs.
@@ -57,17 +64,4 @@ Legend:
 - T tutorial
 - S Seminar
 
-## Tutorial
 
-### Turorial 1
-
-- [Tutorial 1: installing    kubernetes ](Intro/readme.md)
-- [Tutorial 2: using/managing kubernetes ](Intro/readme.md)
-<<<<<<< ours
-
-# Resources
-
-- Starting point and the one to refer for this course: https://kubernetes.io/docs/home/
-- Introduction will follow in particular this section: https://kubernetes.io/docs/concepts/
-
-Complete list of resources is available [here](https://gitlab.com/aiace9/knowledgedatabase/-/blob/master/org/kubernetes.org) and the [bib file](https://gitlab.com/aiace9/knowledgedatabase/-/blob/master/references.bib) to solve urls where not available. I will publish a more synthetic list later on.
