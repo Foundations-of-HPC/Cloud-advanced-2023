@@ -1,0 +1,46 @@
+proxy:
+  secretToken: "token"
+
+# When a user logs into JupyterHub, they get a ‘server’, 
+# which we usually call the single-user server, 
+# because it’s a server that’s meant for a single JupyterHub user. 
+# Each JupyterHub user gets a different one (or more than one!).
+# A single-user server is a process running somewhere that is:
+# accessible over http[s],
+# authenticated via JupyterHub using OAuth 2.0,
+# started by a Spawner, and ‘owned’ by a single JupyterHub user 
+
+singleuser:
+  storage:
+    capacity: 12Gi
+    dynamic:
+      storageClass: nfs-client
+
+# hub relates to the hub pod, responsible for running JupyterHub, 
+# its configured Authenticator class KubeSpawner,
+# and its configured Proxy class ConfigurableHTTPProxy.
+# KubeSpawner creates the user pods, 
+# and ConfigurableHTTPProxy speaks with the actual ConfigurableHTTPProxy server in the proxy pod.
+
+# JupyterHub provides a multi-user interactive notebook environment. 
+# When deploying Dask-Gateway alongside JupyterHub, 
+# you can configure Dask-Gateway to use JupyterHub for authentication.
+
+# Configuring a dask-gateway chart with a jupyterhub chart is more straight
+# forward if they are installed in the same namespace for two reasons. 
+# First the JupyterHub chart generates api tokens for registered services
+# and puts them in a k8s Secret that dask-gateway can make use of.
+# Secondly dask-gateway pods/containers can detect the k8s Service from
+# the JupyterHub chart's resources automatically.
+
+# If dask-gateway is installed in the same namespace as jupyterhub, 
+# the ``display`` attribute hides dask-gateway from the 'Services' dropdown in
+# the JupyterHub home page as dask-gateway doesn't offer any UI.
+hub:
+  services:
+    dask-gateway:
+      display: false
+  db:
+    pvc: # Persistent Volume Claim
+      storage: 12Gi
+      storageClassName: nfs-client

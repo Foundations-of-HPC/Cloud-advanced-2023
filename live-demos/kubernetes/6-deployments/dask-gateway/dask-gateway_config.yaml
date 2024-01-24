@@ -1,0 +1,68 @@
+# https://gateway.dask.org/cluster-options.html
+
+gateway:
+  # Path prefix to serve dask-gateway api requests under
+  # This prefix will be added to all routes the gateway manages
+  # in the traefik proxy.
+  #prefix: "/services/dask-gateway"
+
+  # Number of instances of the gateway-server to run
+  replicas: 1
+
+  auth:
+    # The auth type to use. One of {simple, kerberos, jupyterhub, custom}.
+    type: jupyterhub
+
+  extraConfig:
+    # Note that the key name here doesn't matter. Values in the
+    # `extraConfig` map are concatenated, sorted by key name.
+    clusteroptions: |
+        from dask_gateway_server.options import Options, Integer, Float, String
+
+
+        def option_handler(options):
+            return {
+                "worker_cores": options.worker_cores,
+                "worker_memory": "%fG" % options.worker_memory,
+                "image": options.image,
+            }
+
+        c.Backend.cluster_options = Options(
+            Integer("worker_cores", 1, min=1, max=2, label="Worker Cores"),
+            Float("worker_memory", 1, min=1, max=2, label="Worker Memory (GiB)"),
+            String("image", default="daskgateway/dask-gateway:latest", label="Image"),
+            handler=option_handler,
+        )
+        c.ClusterConfig.cluster_max_cores = 6
+        c.ClusterConfig.cluster_max_memory = "9 G"
+        #c.ClusterConfig.cluster_max_workers = 2
+        #c.KubeClusterConfig.worker_extra_container_config = {
+        #        "envFrom": [
+        #                    {"secretRef": {"name": "awsconfig"}}
+        #                        ]
+        #                    }
+
+
+
+# Options are exposed to the user by setting c.Backend.cluster_options.
+# This configuration field takes either:
+
+# a dask_gateway_server.options.Options object,
+# which describes what options are exposed to end users,
+# and how the gateway server should interpret those options.
+
+# a function which receives a dask_gateway_server.models.User
+# and returns a dask_gateway_server.options.Options object when called.
+# This supports dynamic configuration options that depend on the requesting user.
+
+# A dask_gateway_server.options.Options object takes two arguments:
+
+# *fields: One or more dask_gateway_server.options.Field objects,
+# which provide a typed declarative specification of each user facing option.
+
+# handler: An optional handler function for translating the values set by those options
+# into configuration values to set on the corresponding ClusterConfig.
+# Should have the signature handler(options) or handler(options, user),
+# where options is the validated dict of user options, and user is a User model for that user.
+
+
