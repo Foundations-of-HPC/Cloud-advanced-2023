@@ -1,8 +1,8 @@
-# Exercise  for the course Cloud Computing Basic.
+# Exercise  for the course Cloud Computing Advanced.
 
-This is the exercise for Prof. Taffoni and Ruggero of the 2023/2024 Cloud Computing course.
+This is the exercise for Prof. Taffoni and Ruggero of the 2023/2024 Cloud Computing Advanced course. Both exercises must be done.
 
-Version `1.0`: This document can be modified several times in the next few days to improve the clarity of the information and provide a better understanding of what we are asking.
+Version `1.1`: This document can be modified several times in the next few days to improve the clarity of the information and provide a better understanding of what we are asking.
 
 ## Rules
 
@@ -14,8 +14,11 @@ Version `1.0`: This document can be modified several times in the next few days 
 ***deadlines***
 
 You should send us the e-mail at least one week before the exam. For the first two  scheduled "appelli" this means:
+
  - exam scheduled at 1.02.2024  **deadline 28.01.2023 at midnight**
  - exam scheduled at 23.02.2024  **deadline 20.02.2023 at midnight**
+ - Summer session UPCOMING
+
 The report should clearly explain which software stack we should use to deploy the developed infrastructure and run all the programs you used in your exercises. Providing well-done Makefiles/Dockerfiles/scripts to automatize the work is highly appreciated.
 
 
@@ -62,7 +65,7 @@ Presentation:
 - Resilience: Is the system implementing basic HA correctly?
 - Security: Are any security measures implemented or discussed?
 
-## Exercise 2: mpi service in Kubernetes (Advanced)
+## Exercise 2: mpi service in Kubernetes
 
 ### Introduction
 
