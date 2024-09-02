@@ -18,7 +18,9 @@ You should send us the e-mail at least one week before the exam. For the first t
  - exam scheduled at 01.02.2024  **deadline 28.01.2024 at midnight**
  - exam scheduled at 23.02.2024  **deadline 20.02.2024 at midnight**
  - exam scheduled at 05.08.2024  **deadline 03.05.2024 at midnight**
- - Autumn session UPCOMING
+ - exam scheduled at 06.09.2024  **deadline 04.09.2024 at midnight**
+ - exam scheduled at 23.09.2024  **deadline 22.09.2024 at midnight**
+ - Winter session UPCOMING
 
 The report should clearly explain which software stack we should use to deploy the developed infrastructure and run all the programs you used in your exercises. Providing well-done Makefiles/Dockerfiles/scripts to automatize the work is highly appreciated.
 
