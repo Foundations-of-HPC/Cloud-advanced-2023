@@ -25,12 +25,15 @@ Computational resource to be used: ORFEO cluster see https://orfeo-doc.areascien
   - HPC course completed
   - decent knowledge of scripting language  ( python is fine but bash awk perl are also welcome}
 
-# Exam sessions of the first semester
+# Exam sessions
 
-| DATE         | TIME                                     | LOCATION                                                           |
-| :----------  | :---------------------------------------------| :---------------------------------------------
-| Thu, Feb 1 2024  | 09:00-14:00 | Osservatorio Astronomico di Trieste, via Bazzoni 2 |
-| Fri, Feb 23 2024  | 13:00-18:00 | Osservatorio Astronomico di Trieste, via Bazzoni 2 |
+| DATE             | TIME        | LOCATION                                           |
+|:-----------------|:------------|:---------------------------------------------------|
+| Thu, Feb 1  2024 | 09:00-14:00 | Osservatorio Astronomico di Trieste, via Bazzoni 2 |
+| Fri, Feb 23 2024 | 13:00-18:00 | Osservatorio Astronomico di Trieste, via Bazzoni 2 |
+| Mon, Aug 5  2024 | 09:00-14:00 | Area Science Park                                  |
+| Fri, Sep 6  2024 | 09:30-13:00 | Osservatorio Astronomico di Trieste, via Bazzoni 2 |
+| Mon, Sep 23 2024 | 09:30-13:00 | Osservatorio Astronomico di Trieste, via Bazzoni 2 |
 
 # Calendar&Topic
 
